@@ -1,0 +1,26 @@
+{
+    "name": "repo",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "dev": "yarn workspace app run dev",
+        "build": "yarn run build-fast&&yarn run lint",
+        "start": "yarn workspace app run start",
+        "build-fast": "yarn workspace @i-novus/oidc-pkce-public-client run build&&yarn workspace app run build",
+        "lint": "yarn workspace @i-novus/oidc-pkce-public-client run lint&&yarn workspace app run lint",
+        "dev:lib:watch": "yarn workspace @i-novus/oidc-pkce-public-client run dev"
+    },
+    "devDependencies": {
+        "@aramazanov/eslint-config": "^2.0.2",
+        "eslint": "^8.42.0"
+    },
+    "engines": {
+        "npm": "please-use-yarn",
+        "node": ">=16"
+    },
+    "packageManager": "yarn@3.6.3"
+}

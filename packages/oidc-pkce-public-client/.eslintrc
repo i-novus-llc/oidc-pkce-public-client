@@ -1,0 +1,10 @@
+{
+    "root": true,
+    "rules": {
+        "@typescript-eslint/naming-convention": "off",
+        "sonarjs/cognitive-complexity": "off"
+    },
+    "extends": [
+        "../../.eslintrc.json"
+    ]
+}

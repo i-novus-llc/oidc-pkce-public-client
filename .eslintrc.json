@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "@aramazanov/eslint-config/react"
+    ],
+    "rules": {
+        "arrow-parens": ["error", "always"],
+        "react/default-props-match-prop-types": ["off"],
+        "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state", "acc"] }]
+    }
+}
