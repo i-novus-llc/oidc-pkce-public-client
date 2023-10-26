@@ -153,7 +153,9 @@ start().catch((e) => {
 
 `yarn run lint` Запускает проверку качества кода библиотеки
 
+`yarn run publish` Запускает публикацию библиотеки
+
 
 ## License
 
-[MIT](./LICENSE)
+[Apache-2.0](./LICENSE)

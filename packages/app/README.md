@@ -56,4 +56,4 @@ npm-пакет `@i-novus/oidc-pkce-public-client` предназначен дл�
 
 ## License
 
-[MIT](./LICENSE)
+[Apache-2.0](./LICENSE)

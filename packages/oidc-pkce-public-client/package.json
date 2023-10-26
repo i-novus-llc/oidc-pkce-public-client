@@ -2,6 +2,15 @@
   "name": "@i-novus/oidc-pkce-public-client",
   "version": "1.0.0",
   "description": "OIDC public client with PKCE for react with tokens sharing by localStorage. React context included",
+  "author": "I-Novus LLC<n2o@i-novus.ru>",
+  "homepage": "https://www.npmjs.com/package/@i-novus/oidc-pkce-public-client",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "tsc-watch",
+    "build": "tsc",
+    "lint": "eslint src",
+    "publish": "yarn npm publish"
+  },
   "keywords": [
     "OIDC",
     "OAUTH",
@@ -12,9 +21,6 @@
     "localstorage",
     "i-novus"
   ],
-  "author": "I-Novus LLC<n2o@i-novus.ru>",
-  "homepage": "https://www.npmjs.com/package/@i-novus/oidc-pkce-public-client",
-  "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -27,11 +33,6 @@
   "type": "module",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "scripts": {
-    "dev": "tsc-watch",
-    "build": "tsc",
-    "lint": "eslint src"
-  },
   "dependencies": {
     "crypto-js": "^4.1.1",
     "jwt-decode": "^3.1.2",
