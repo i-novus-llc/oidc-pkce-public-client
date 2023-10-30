@@ -1,0 +1,13 @@
+publish:
+  image: node:latest
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /^v\d+\.\d+\.\d+.*/
+      when: never
+    - changes: 
+      - .gitlab-ci.yml
+      - packages/oidc-pkce-public-client/*
+  script:
+    echo "Yo! ${CI_COMMIT_BRANCH} ${CI_DEFAULT_BRANCH} ${CI_COMMIT_REF_NAME} ${CI_COMMIT_MESSAGE}"
