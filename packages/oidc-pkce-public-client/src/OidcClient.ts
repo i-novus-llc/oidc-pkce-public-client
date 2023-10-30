@@ -221,7 +221,7 @@ export class OidcClient {
      */
     getLoginCallbackData(): { responseId: string | null, responseCode: string | null } {
         const { responseMode } = this.config
-
+        const params: Record<string, string | null> = {}
         let responseId: string | null = null
         let responseCode: string | null = null
 
@@ -229,8 +229,9 @@ export class OidcClient {
             case 'query': {
                 const { searchParams } = new URL(window.location.href)
 
-                responseId = searchParams.get('state')
-                responseCode = searchParams.get('code')
+                for (const key of searchParams.keys()) {
+                    params[key] = searchParams.get(key)
+                }
 
                 break
             }
@@ -241,24 +242,25 @@ export class OidcClient {
                     hash = decodeURIComponent(hash.substring(1))
 
                     const pairs = hash.split('&')
-                    const params: Record<string, string> = {}
 
                     pairs.forEach((pair) => {
                         const [key, ...valueParts] = pair.split('=')
 
                         params[key!] = valueParts.join('=')
                     })
-
-                    if (params.state && params.code) {
-                        responseId = params.state
-                        responseCode = params.code
-                    }
                 }
 
                 break
             }
             default:
                 throw new Error(`INIT: Unknown response mode type "${responseMode}"`)
+        }
+
+        if (params.session_state && params.code && params.state) {
+            responseId = params.state || null
+            responseCode = params.code || null
+        } else if (params.error && params.error_description && params.state) {
+            throw new Error(`${params.error}: ${params.error_description}`)
         }
 
         return { responseId, responseCode }

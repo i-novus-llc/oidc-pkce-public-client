@@ -1,12 +1,12 @@
 {
   "name": "@i-novus/oidc-pkce-public-client",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "OIDC public client with PKCE for react with tokens sharing by localStorage. React context included",
   "author": "I-Novus LLC<n2o@i-novus.ru>",
   "homepage": "https://www.npmjs.com/package/@i-novus/oidc-pkce-public-client",
   "license": "Apache-2.0",
   "scripts": {
-    "dev": "tsc-watch",
+    "dev:watch": "tsc-watch",
     "build": "tsc",
     "lint": "eslint src"
   },

@@ -7,12 +7,12 @@
         "packages/*"
     ],
     "scripts": {
-        "dev": "yarn workspace app run dev",
         "build": "yarn run build-fast&&yarn run lint",
         "start": "yarn workspace app run start",
+        "dev:lib:watch": "yarn workspace @i-novus/oidc-pkce-public-client run dev:watch",
+        "dev:app:watch": "yarn workspace app run dev:watch",
         "build-fast": "yarn workspace @i-novus/oidc-pkce-public-client run build&&yarn workspace app run build",
-        "lint": "yarn workspace @i-novus/oidc-pkce-public-client run lint&&yarn workspace app run lint",
-        "dev:lib:watch": "yarn workspace @i-novus/oidc-pkce-public-client run dev"
+        "lint": "yarn workspace @i-novus/oidc-pkce-public-client run lint&&yarn workspace app run lint"
     },
     "devDependencies": {
         "@aramazanov/eslint-config": "^2.0.2",

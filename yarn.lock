@@ -537,7 +537,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@i-novus/oidc-pkce-public-client@1.0.0, @i-novus/oidc-pkce-public-client@workspace:packages/oidc-pkce-public-client":
+"@i-novus/oidc-pkce-public-client@workspace:*, @i-novus/oidc-pkce-public-client@workspace:packages/oidc-pkce-public-client":
   version: 0.0.0-use.local
   resolution: "@i-novus/oidc-pkce-public-client@workspace:packages/oidc-pkce-public-client"
   dependencies:
@@ -1024,7 +1024,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
-    "@i-novus/oidc-pkce-public-client": 1.0.0
+    "@i-novus/oidc-pkce-public-client": "workspace:*"
     "@types/react": ^18.2.28
     "@types/react-dom": ^18.2.13
     "@vitejs/plugin-react": ^4.1.0

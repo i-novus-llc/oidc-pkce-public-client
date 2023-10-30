@@ -24,6 +24,6 @@ if (responseMode) {
     oidcClientConfig.responseMode = responseMode as OidcClientConfig['responseMode']
 }
 
-oidcClientConfig.pkce = pkceStr !== 'false'
+oidcClientConfig.pkce = pkceStr ? pkceStr === 'true' : true
 
 export { oidcClientConfig }
