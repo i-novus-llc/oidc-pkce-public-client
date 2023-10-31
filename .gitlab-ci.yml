@@ -6,8 +6,34 @@ publish:
       when: never
     - if: $CI_COMMIT_MESSAGE =~ /^v\d+\.\d+\.\d+.*/
       when: never
-    - changes: 
+    - changes:
       - .gitlab-ci.yml
       - packages/oidc-pkce-public-client/*
   script:
-    echo "Yo! ${CI_COMMIT_BRANCH} ${CI_DEFAULT_BRANCH} ${CI_COMMIT_REF_NAME} ${CI_COMMIT_MESSAGE}"
+    - yarn install
+    - yarn run build
+
+    # Add version 0.0.x
+    - yarn workspace @i-novus/oidc-pkce-public-client version patch
+
+    - NPM_PACKAGE_NAME=$(node -p "require('./packages/oidc-pkce-public-client/package.json').name")
+    - NPM_PACKAGE_VERSION=$(node -p "require('./packages/oidc-pkce-public-client/package.json').version")
+
+    - |
+      if [[ "$(npm view ${NPM_PACKAGE_NAME} versions)" == *"'${NPM_PACKAGE_VERSION}'"* ]]; then
+        echo "Version ${NPM_PACKAGE_VERSION} of ${NPM_PACKAGE_NAME} has already been published"
+        exit 1
+      fi
+
+    - echo "Start publish ${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION}"
+
+    - git add .
+    - git commit -m "v${NPM_PACKAGE_VERSION}"
+    - git push
+    - git tag v${NPM_PACKAGE_VERSION} $CI_COMMIT_BRANCH
+    - git push origin v${NPM_PACKAGE_VERSION}
+
+    - cross-env YARN_NPM_AUTH_TOKEN=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 YARN_NPM_ALWAYS_AUTH=true yarn workspace @i-novus/oidc-pkce-public-client npm publish --access public
+
+    - echo "Successfully published ${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION} to NPM registry!"
+

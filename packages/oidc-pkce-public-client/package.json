@@ -14,6 +14,7 @@
     "OIDC",
     "OAUTH",
     "PKCE",
+    "public",
     "react",
     "typescript",
     "context",

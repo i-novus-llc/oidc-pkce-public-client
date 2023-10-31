@@ -1,5 +1,6 @@
 {
     "name": "repo",
+    "description": "monorepo for \"@i-novus/oidc-pkce-public-client\" lib and test app for it",
     "private": true,
     "license": "Apache-2.0",
     "type": "module",
