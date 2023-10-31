@@ -10,8 +10,10 @@ publish:
       - .gitlab-ci.yml
       - packages/oidc-pkce-public-client/*
   before_script:
-    - git config --global user.name "${GITLAB_USER_NAME}"
-    - git config --global user.email "${GITLAB_USER_NAME}@i-novus.ru"
+    - |
+      git remote set-url origin http://$GITLAB_USER_NAME:$GITLAB_USER_TOKEN@$GITLAB_PROJECT
+      git config --global user.name "${GITLAB_USER_NAME}"
+      git config --global user.email "${GITLAB_USER_NAME}@i-novus.ru"
   script:
     - |
       yarn install
@@ -22,8 +24,7 @@ publish:
 
       NPM_PACKAGE_NAME=$(node -p "require('./packages/oidc-pkce-public-client/package.json').name")
       NPM_PACKAGE_VERSION=$(node -p "require('./packages/oidc-pkce-public-client/package.json').version")
-      GITLAB_HOST_WITH_AUTH="http://${GITLAB_USER_NAME}:${GITLAB_USER_TOKEN}@${GITLAB_PROJECT}"
-
+      
       if [[ "$(npm view ${NPM_PACKAGE_NAME} versions)" == *"'${NPM_PACKAGE_VERSION}'"* ]]; then
         echo "Version ${NPM_PACKAGE_VERSION} of ${NPM_PACKAGE_NAME} has already been published"
         exit 1
@@ -33,11 +34,11 @@ publish:
 
       git add .
       git commit -m "v${NPM_PACKAGE_VERSION}"
-      git push $GITLAB_HOST_WITH_AUTH HEAD:$CI_COMMIT_BRANCH
+      git push HEAD:$CI_COMMIT_BRANCH
       git tag v${NPM_PACKAGE_VERSION} $CI_COMMIT_BRANCH
-      git push v${NPM_PACKAGE_VERSION} $GITLAB_HOST_WITH_AUTH HEAD:$CI_COMMIT_BRANCH
+      git push v${NPM_PACKAGE_VERSION} HEAD:$CI_COMMIT_BRANCH
 
       cross-env YARN_NPM_AUTH_TOKEN=${NPM_PUBLISH_TOKEN} YARN_NPM_ALWAYS_AUTH=true yarn workspace @i-novus/oidc-pkce-public-client npm publish --access public
 
-    - echo "Successfully published ${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION} to NPM registry!"
+      echo "Successfully published ${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION} to NPM registry!"
 
