@@ -34,9 +34,9 @@ publish:
 
       git add .
       git commit -m "v${NPM_PACKAGE_VERSION}"
-      git push HEAD:$CI_COMMIT_BRANCH
+      git push HEAD:$CI_COMMIT_BRANCH --force
       git tag v${NPM_PACKAGE_VERSION} $CI_COMMIT_BRANCH
-      git push v${NPM_PACKAGE_VERSION} HEAD:$CI_COMMIT_BRANCH
+      git push v${NPM_PACKAGE_VERSION} HEAD:$CI_COMMIT_BRANCH --force
 
       cross-env YARN_NPM_AUTH_TOKEN=${NPM_PUBLISH_TOKEN} YARN_NPM_ALWAYS_AUTH=true yarn workspace @i-novus/oidc-pkce-public-client npm publish --access public
 
