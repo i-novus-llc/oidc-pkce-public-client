@@ -32,7 +32,7 @@ publish:
 
     - git add .
     - git commit -m "v${NPM_PACKAGE_VERSION}"
-    - git push origin $GIT_HOST_WITH_AUTH HEAD:$CI_COMMIT_BRANCH
+    - git push origin "${GIT_HOST_WITH_AUTH}" HEAD:$CI_COMMIT_BRANCH
     - git tag v${NPM_PACKAGE_VERSION} $CI_COMMIT_BRANCH
     - git push v${NPM_PACKAGE_VERSION} $GIT_HOST_WITH_AUTH HEAD:$CI_COMMIT_BRANCH
 
