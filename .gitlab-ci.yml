@@ -10,4 +10,14 @@ publish:
       - .gitlab-ci.yml
       - packages/oidc-pkce-public-client/*
   script:
-    echo "Yo! ${CI_COMMIT_BRANCH} ${CI_DEFAULT_BRANCH} ${CI_COMMIT_REF_NAME} ${CI_COMMIT_MESSAGE}"
+    - NPM_PACKAGE_NAME=$(node -p "require('./package.json').name")
+    - NPM_PACKAGE_VERSION=$(node -p "require('./package.json').version")
+
+    - |
+      if [[ "$(npm view ${NPM_PACKAGE_NAME} versions)" == *"'${NPM_PACKAGE_VERSION}'"* ]]; then
+        echo "Version ${NPM_PACKAGE_VERSION} of ${NPM_PACKAGE_NAME} has already been published"
+        exit 1
+      fi
+
+    - echo "Successfully published version ${NPM_PACKAGE_VERSION} of ${NPM_PACKAGE_NAME} to NPM registry"
+    
