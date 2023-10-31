@@ -1,7 +1,8 @@
 publish:
   image: node:latest
   stage: deploy
-  
+  tags:
+    - yc-builder
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
       when: never
