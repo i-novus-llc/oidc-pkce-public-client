@@ -13,7 +13,9 @@ publish:
     - NPM_PACKAGE_NAME=$(node -p "require('./packages/oidc-pkce-public-client/package.json').name")
     - NPM_PACKAGE_VERSION=$(node -p "require('./packages/oidc-pkce-public-client/package.json').version")
 
-    - echo "${NPM_PACKAGE_NAME} ${NPM_PACKAGE_VERSION}"
+    - yarn install
+    - yarn run build
+    - yarn workspace @i-novus/oidc-pkce-public-client version patch
 
     - |
       if [[ "$(npm view ${NPM_PACKAGE_NAME} versions)" == *"'${NPM_PACKAGE_VERSION}'"* ]]; then
