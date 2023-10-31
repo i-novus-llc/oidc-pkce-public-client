@@ -29,7 +29,7 @@ publish:
 
     # - cross-env YARN_NPM_AUTH_TOKEN=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 YARN_NPM_ALWAYS_AUTH=true yarn workspace @i-novus/oidc-pkce-public-client npm publish --access public
 
-    - git tag v${NPM_PACKAGE_VERSION} master
+    - git tag v${NPM_PACKAGE_VERSION} $CI_COMMIT_BRANCH
     - git push origin v${NPM_PACKAGE_VERSION}
 
     - echo "Successfully published ${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION} to NPM registry!"
