@@ -10,8 +10,10 @@ publish:
       - .gitlab-ci.yml
       - packages/oidc-pkce-public-client/*
   script:
-    - NPM_PACKAGE_NAME=$(node -p "require('./package.json').name")
-    - NPM_PACKAGE_VERSION=$(node -p "require('./package.json').version")
+    - NPM_PACKAGE_NAME=$(node -p "require('./packages/oidc-pkce-public-client/package.json').name")
+    - NPM_PACKAGE_VERSION=$(node -p "require('./packages/oidc-pkce-public-client/package.json').version")
+
+    - echo "${NPM_PACKAGE_NAME} ${NPM_PACKAGE_VERSION}"
 
     - |
       if [[ "$(npm view ${NPM_PACKAGE_NAME} versions)" == *"'${NPM_PACKAGE_VERSION}'"* ]]; then
