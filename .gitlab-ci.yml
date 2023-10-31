@@ -27,6 +27,9 @@ publish:
 
     - echo "Start publish ${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION}"
 
+    - git config --global user.email "ci@i-novus.ru"
+    - git config --global user.name "CI"
+
     - git add .
     - git commit -m "v${NPM_PACKAGE_VERSION}"
     - git push
