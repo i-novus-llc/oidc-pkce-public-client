@@ -23,10 +23,12 @@ Publish:
       git config --global user.name "${GITLAB_USER_NAME}"
       git config --global user.email "${GITLAB_USER_NAME}@i-novus.ru"
 
-      git remote show origin
       # git remote set-url --push origin git@git.i-novus.ru:open/oidc-pkce-public-client.git
       # git remote show origin
       git checkout $CI_COMMIT_BRANCH
+
+      git remote show origin
+      git status
   script:
     - |
       yarn install
