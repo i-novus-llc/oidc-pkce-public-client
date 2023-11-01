@@ -7,8 +7,8 @@ default:
 
 stages:
   - prepare
-  - push
-  - publish
+  - git push
+  - npm publish
 
 # PREPARE (install, build, inc version, check version in npm)  
 
@@ -41,14 +41,14 @@ Prepare:
 # PUSH (git push commit with version and tag)
 
 Push:
-  stage: push
+  stage: git push
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
       when: never
     - if: $CI_COMMIT_MESSAGE =~ /^v\d+\.\d+\.\d+.*/
       when: never
     - changes:
-      - .gitlab-ci.yml
+      # - .gitlab-ci.yml
       - packages/oidc-pkce-public-client/*
   before_script:
     - |
@@ -69,7 +69,7 @@ Push:
 # PUBLISH (publish package to npm registry)
 
 Publish:
-  stage: publish
+  stage: npm publish
   rules:
     - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
       when: never
