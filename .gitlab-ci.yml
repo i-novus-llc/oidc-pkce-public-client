@@ -24,6 +24,10 @@ Publish:
       git config --global user.email "${GITLAB_USER_NAME}@i-novus.ru"
   script:
     - |
+      for file in `ls ./*`; do
+        echo $file
+      done
+
       yarn install
       yarn run build
 
