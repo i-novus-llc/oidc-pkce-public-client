@@ -22,6 +22,11 @@ Publish:
     - |
       git config --global user.name "${GITLAB_USER_NAME}"
       git config --global user.email "${GITLAB_USER_NAME}@i-novus.ru"
+
+      git remote show origin
+      # git remote set-url --push origin git@git.i-novus.ru:open/oidc-pkce-public-client.git
+      # git remote show origin
+      git checkout $CI_COMMIT_BRANCH
   script:
     - |
       yarn install
@@ -39,10 +44,6 @@ Publish:
       fi
 
       echo "Start publish ${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION}"
-
-      git remote show origin
-      git remote set-url --push origin git@git.i-novus.ru:open/oidc-pkce-public-client.git
-      git remote show origin
       
       # GITLAB_HOST_WITH_AUTH="http://${GITLAB_USER_NAME}:${GITLAB_USER_TOKEN}@${GITLAB_PROJECT}"
       
