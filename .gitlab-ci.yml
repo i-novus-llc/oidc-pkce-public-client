@@ -18,6 +18,12 @@ Publish:
     - changes:
       - .gitlab-ci.yml
       - packages/oidc-pkce-public-client/*
+  cache:
+    - key:
+        files:
+          - yarn.lock
+      paths:
+        - .yarn/.yarn-cache/
   before_script:
     - git config --global user.name "${GITLAB_USER_NAME}"
     - git config --global user.email "${GITLAB_USER_NAME}@i-novus.ru"
