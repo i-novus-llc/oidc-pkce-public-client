@@ -21,9 +21,11 @@ Publish:
   cache:
     - key:
         files:
+          - package.json
           - yarn.lock
       paths:
-        - .yarn/.yarn-cache/
+        - .yarn/cache
+        - node_modules
   before_script:
     - git config --global user.name "${GITLAB_USER_NAME}"
     - git config --global user.email "${GITLAB_USER_NAME}@i-novus.ru"
