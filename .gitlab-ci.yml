@@ -33,10 +33,12 @@ Prepare:
       NPM_PACKAGE_NAME=$(node -p "require('./packages/oidc-pkce-public-client/package.json').name")
       NPM_PACKAGE_VERSION=$(node -p "require('./packages/oidc-pkce-public-client/package.json').version")
       
-      # if [[ "$(npm view ${NPM_PACKAGE_NAME} versions)" == *"'${NPM_PACKAGE_VERSION}'"* ]]; then
-      #   echo "Version ${NPM_PACKAGE_VERSION} of ${NPM_PACKAGE_NAME} has already been published"
-      #   exit 1
-      # fi
+      if [[ "$(npm view ${NPM_PACKAGE_NAME} versions)" == *"'${NPM_PACKAGE_VERSION}'"* ]]; then
+        echo "Version ${NPM_PACKAGE_VERSION} of ${NPM_PACKAGE_NAME} has already been published"
+        exit 1
+      fi
+
+      echo "${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION}"
 
 # PUSH (git push commit with version and tag)
 
@@ -56,7 +58,10 @@ Push:
       git config --global user.email "${GITLAB_USER_NAME}@i-novus.ru"
   script:
     - |
-      #       GITLAB_HOST_WITH_AUTH="http://${GITLAB_USER_NAME}:${GITLAB_USER_TOKEN}@${GITLAB_PROJECT}"
+      NPM_PACKAGE_NAME=$(node -p "require('./packages/oidc-pkce-public-client/package.json').name")
+      NPM_PACKAGE_VERSION=$(node -p "require('./packages/oidc-pkce-public-client/package.json').version")
+      
+      # GITLAB_HOST_WITH_AUTH="http://${GITLAB_USER_NAME}:${GITLAB_USER_TOKEN}@${GITLAB_PROJECT}"
             
       #       git add .
       #       git commit -m "v${NPM_PACKAGE_VERSION}"
