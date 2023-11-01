@@ -4,6 +4,13 @@
   "description": "OIDC public client with PKCE for react with tokens sharing by localStorage. React context included",
   "author": "I-Novus LLC<n2o@i-novus.ru>",
   "homepage": "https://www.npmjs.com/package/@i-novus/oidc-pkce-public-client",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/i-novus-llc/oidc-pkce-public-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/i-novus-llc/oidc-pkce-public-client/issues"
+  },
   "license": "Apache-2.0",
   "scripts": {
     "dev:watch": "tsc-watch",
@@ -19,7 +26,10 @@
     "typescript",
     "context",
     "localstorage",
-    "i-novus"
+    "i-novus",
+    "security",
+    "crypto",
+    "RS256"
   ],
   "publishConfig": {
     "access": "public"
