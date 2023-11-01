@@ -48,9 +48,9 @@ Publish:
 
     - git add .
     - git commit -m "${COMMIT_VERSION}"
-    - git tag ${COMMIT_VERSION}
-    # - git push
-    - git push --follow-tags
+    - git tag "${COMMIT_VERSION}"
+    - git push
+    - git push origin "${COMMIT_VERSION}"
       # git push $GITLAB_HOST_WITH_AUTH HEAD:$CI_COMMIT_BRANCH
       # git tag v${NPM_PACKAGE_VERSION} $CI_COMMIT_BRANCH
       # git push v${NPM_PACKAGE_VERSION} $GITLAB_HOST_WITH_AUTH HEAD:$CI_COMMIT_BRANCH
