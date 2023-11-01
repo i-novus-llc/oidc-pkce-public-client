@@ -52,14 +52,14 @@ Publish:
 
     - echo "Start publish ${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION}"
 
-    - COMMIT_VERSION="v${NPM_PACKAGE_VERSION}"
+    - PACKAGE_VERSION="v${NPM_PACKAGE_VERSION}"
 
     - git add .
-    - git commit -m "${COMMIT_VERSION}"
-    - git tag "${COMMIT_VERSION}"
+    - git commit -m "${PACKAGE_VERSION}"
+    - git tag "${PACKAGE_VERSION}"
     - git push
-    - git push origin "${COMMIT_VERSION}"
+    - git push origin "${PACKAGE_VERSION}"
 
-    - cross-env YARN_NPM_AUTH_TOKEN=${NPM_PUBLISH_TOKEN} YARN_NPM_ALWAYS_AUTH=true yarn workspace @i-novus/oidc-pkce-public-client npm publish --access public
+    - YARN_NPM_AUTH_TOKEN=${NPM_PUBLISH_TOKEN} YARN_NPM_ALWAYS_AUTH=true yarn workspace @i-novus/oidc-pkce-public-client npm publish --access public
 
     - echo "Successfully published ${NPM_PACKAGE_NAME}@${NPM_PACKAGE_VERSION} to NPM registry!"
