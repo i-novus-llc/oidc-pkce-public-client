@@ -16,7 +16,6 @@ Publish:
     - if: $CI_COMMIT_MESSAGE =~ /^v\d+\.\d+\.\d+.*/
       when: never
     - changes:
-      - .gitlab-ci.yml
       - packages/oidc-pkce-public-client/*
   cache:
     - key:
