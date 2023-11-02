@@ -22,7 +22,7 @@ const HOUR = 60 * MINUTE
 
 export class OidcClient {
     /**
-     * Конфиг клиента
+     * Client configuration
      */
     config: Config
 
