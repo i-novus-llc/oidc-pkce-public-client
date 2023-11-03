@@ -1,4 +1,12 @@
+# compiled output
 node_modules
+
+.env
+.env.*
+!.env.example
+
+# Build output
+dist
 
 # Yarn
 .pnp.*
@@ -7,6 +15,13 @@ node_modules
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
+
+# OS
+.DS_Store
+
+# Tests
+/coverage
+/.nyc_output
 
 # IDEs and editors
 .idea
