@@ -1,6 +1,6 @@
 {
   "name": "@i-novus/oidc-pkce-public-client",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "OIDC public client with PKCE for react with tokens sharing by localStorage. React context included",
   "author": "I-Novus LLC<n2o@i-novus.ru>",
   "homepage": "https://www.npmjs.com/package/@i-novus/oidc-pkce-public-client",
