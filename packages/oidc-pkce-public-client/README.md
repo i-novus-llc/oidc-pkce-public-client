@@ -138,15 +138,15 @@ start().catch((e) => {
 
 ## Параметры OidcClient
 
-| Параметр       | Тип                   | Обязательность | По умолчанию         | Описание                                                                                                                                             |
-|----------------|-----------------------|:--------------:|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| authority      | string                |       +        | -                    | Ссылка на oauth сервер с реалмом. Пример: https://some-oauth-server/auth/realms/realm-name/                                                          | 
-| clientId       | string                |       +        | -                    | id клиента                                                                                                                                           |
-| responseMode   | query &#124; fragment |                | query                | Формат передачи данных с oauth сервера приложению в ответ на авторизацию пользователем. `query` - в виде query параметров и `fragment` - в виде хеша | 
-| scope          | string                |                | openid               | scope данных токена, например `openid email roles`                                                                                                   | 
-| pkce           | boolean               |                | true                 | Нужно ли использовать функцию [PKCE](https://oauth.net/2/pkce/). true - нужно испльзовать                                                            | 
-| logoutBackUrl  | string                |                | window.location.href | url. на который будет переход после логаута                                                                                                          | 
-| storeKeyPrefix | string                |                | OIDC-MIF:            | Префикс ключей в LocalStorage для хранения данных oidc-pkce-public-client                                                                            | 
+| Параметр       | Тип                       | Обязательность | Значение по умолчанию | Описание                                                                                                                                             |
+|----------------|---------------------------|:--------------:|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| authority      | string                    |       Да       |                       | Ссылка на oauth сервер с реалмом. Пример: https://some-oauth-server/auth/realms/realm-name/                                                          | 
+| clientId       | string                    |       Да       |                       | id клиента                                                                                                                                           |
+| responseMode   | "query" &#124; "fragment" |                | "query"               | Формат передачи данных с oauth сервера приложению в ответ на авторизацию пользователем. `query` - в виде query параметров и `fragment` - в виде хеша | 
+| scope          | string                    |                | "openid"              | scope данных токена, например `openid email roles`                                                                                                   | 
+| pkce           | boolean                   |                | true                  | Нужно ли использовать функцию [PKCE](https://oauth.net/2/pkce/). true - нужно испльзовать                                                            | 
+| logoutBackUrl  | string                    |                | window.location.href  | url. на который будет переход после логаута                                                                                                          | 
+| storeKeyPrefix | string                    |                | "OIDC-MIF:"           | Префикс ключей в LocalStorage для хранения данных oidc-pkce-public-client                                                                            | 
 
 
 ## Установка зависимостей
