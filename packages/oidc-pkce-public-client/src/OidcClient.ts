@@ -74,8 +74,8 @@ export class OidcClient {
     emit(event: EventType, ...args: unknown[]) {
         const events = this.events[event] as unknown[]
 
-        // @ts-ignore
-        events.forEach((handler) => handler(...args))
+        // @ts-ignore: Совпадение аргументов обеспечивается перегрузкой функции
+        events.forEach(handler => handler(...args))
 
         return this
     }
@@ -85,7 +85,7 @@ export class OidcClient {
      * @param config
      */
     static getConfig(config: OidcClientConfig): Config {
-        const ALLOWED_RESPONSE_MODE_LIST: Config['responseMode'][] = ['query', 'fragment']
+        const ALLOWED_RESPONSE_MODE_LIST: Array<Config['responseMode']> = ['query', 'fragment']
         const finalConfig: Config = ({
             subjectType: 'public',
             authority: config.authority.trim().replace(/\/+$/, ''),
@@ -93,7 +93,6 @@ export class OidcClient {
             responseType: 'code',
             responseMode: config.responseMode ?? 'query',
             grantType: 'authorization_code',
-            tokenSigningAlg: 'RS256',
             scope: config.scope ?? 'openid',
             logoutBackUrl: config.logoutBackUrl ?? window.location.href,
             storeKeyPrefix: config.storeKeyPrefix ?? 'OIDC-MIF:',
@@ -138,7 +137,7 @@ export class OidcClient {
             return value
         }
 
-        const { authority, grantType, responseType, subjectType, tokenSigningAlg, responseMode } = this.config
+        const { authority, grantType, responseType, subjectType, responseMode } = this.config
         const res = await fetch(`${authority}/.well-known/openid-configuration`)
 
         if (!res.ok || res.status !== 200) {
@@ -153,7 +152,6 @@ export class OidcClient {
             grant_types_supported,
             response_types_supported,
             subject_types_supported,
-            id_token_signing_alg_values_supported,
             response_modes_supported,
         } = metadata
 
@@ -169,7 +167,7 @@ export class OidcClient {
             throw new Error('METADATA: end_session_endpoint is not set')
         }
 
-        if (!grant_types_supported || !grant_types_supported.length) {
+        if (!grant_types_supported?.length) {
             throw new Error('METADATA: grant_types_supported is not set or empty')
         }
 
@@ -177,7 +175,7 @@ export class OidcClient {
             throw new Error(`METADATA: grant type "${grantType}" is not supported. Available only "${grant_types_supported.join('", "')}"`)
         }
 
-        if (!response_types_supported || !response_types_supported.length) {
+        if (!response_types_supported?.length) {
             throw new Error('METADATA: response_types_supported is not set or empty')
         }
 
@@ -185,7 +183,7 @@ export class OidcClient {
             throw new Error(`METADATA: response type "${responseType}" is not supported. Available only "${response_types_supported.join('", "')}"`)
         }
 
-        if (!subject_types_supported || !subject_types_supported.length) {
+        if (!subject_types_supported?.length) {
             throw new Error('METADATA: subject_types_supported is not set or empty')
         }
 
@@ -193,19 +191,11 @@ export class OidcClient {
             throw new Error(`METADATA: subject type "${subjectType}" is not supported. Available only "${subject_types_supported.join('", "')}"`)
         }
 
-        if (!id_token_signing_alg_values_supported || !id_token_signing_alg_values_supported.length) {
-            throw new Error('METADATA: id_token_signing_alg_values_supported is not set or empty')
-        }
-
-        if (!id_token_signing_alg_values_supported.includes(tokenSigningAlg)) {
-            throw new Error(`METADATA: token signing algorithm "${tokenSigningAlg}" is not supported. Available only "${id_token_signing_alg_values_supported.join('", "')}"`)
-        }
-
-        if (!response_modes_supported || !response_modes_supported.length) {
+        if (!response_modes_supported?.length) {
             throw new Error('METADATA: response_modes_supported is not set or empty')
         }
 
-        const availableResponseModes = (['query', 'fragment'] as OidcMetadataConfig['response_modes_supported']).filter((responseMode) => response_modes_supported.includes(responseMode))
+        const availableResponseModes = (['query', 'fragment'] as OidcMetadataConfig['response_modes_supported']).filter(responseMode => response_modes_supported.includes(responseMode))
 
         if (!availableResponseModes.includes(responseMode)) {
             throw new Error(`METADATA: response mode "${responseMode}" is not supported. Available only "${availableResponseModes.join('", "')}"`)
@@ -219,7 +209,7 @@ export class OidcClient {
     /**
      * Возвращает промежуточные данные авторизации, если произошел редирект с oauth сервера. Опирается на url
      */
-    getLoginCallbackData(): { responseId: string | null, responseCode: string | null } {
+    getLoginCallbackData(): { responseCode: string | null, responseId: string | null } {
         const { responseMode } = this.config
         const params: Record<string, string | null> = {}
         let responseId: string | null = null
@@ -238,15 +228,15 @@ export class OidcClient {
             case 'fragment': {
                 let { hash } = window.location
 
-                if (hash && hash.startsWith('#')) {
+                if (hash?.startsWith('#')) {
                     hash = decodeURIComponent(hash.substring(1))
 
                     const pairs = hash.split('&')
 
                     pairs.forEach((pair) => {
-                        const [key, ...valueParts] = pair.split('=')
+                        const [key, ...valueParts] = pair.split('=') as [string, ...string[]]
 
-                        params[key!] = valueParts.join('=')
+                        params[key] = valueParts.join('=')
                     })
                 }
 
@@ -256,10 +246,10 @@ export class OidcClient {
                 throw new Error(`INIT: Unknown response mode type "${responseMode}"`)
         }
 
-        if (params.session_state && params.code && params.state) {
+        if (params.code && params.state) {
             responseId = params.state || null
             responseCode = params.code || null
-        } else if (params.error && params.error_description && params.state) {
+        } else if (params.error && params.state) {
             throw new Error(`${params.error}: ${params.error_description}`)
         }
 
@@ -366,15 +356,10 @@ export class OidcClient {
             return
         }
 
-        const { clientId, responseType, scope, tokenSigningAlg, responseMode, pkce } = this.config
+        const { clientId, responseType, scope, responseMode, pkce } = this.config
         const { authorization_endpoint } = await this.getMetadataConfig()
         const id = uuid4()
-
         const codeVerifier = uuid4() + uuid4() + uuid4()
-
-        const hashed = sha256(codeVerifier)
-        const codeChallenge = Base64Url.stringify(hashed)
-
         const loginUrl = new URL(authorization_endpoint)
 
         loginUrl.searchParams.append('client_id', clientId)
@@ -385,8 +370,11 @@ export class OidcClient {
         loginUrl.searchParams.append('state', id)
 
         if (pkce) {
+            const hashed = sha256(codeVerifier)
+            const codeChallenge = Base64Url.stringify(hashed)
+
             loginUrl.searchParams.append('code_challenge', codeChallenge)
-            loginUrl.searchParams.append('code_challenge_method', tokenSigningAlg)
+            loginUrl.searchParams.append('code_challenge_method', 'S256')
         }
 
         const tabStoredData: LoginCallbackSessionStorageData = {
@@ -408,9 +396,9 @@ export class OidcClient {
      * Делает logout, если пользователь авторизован
      */
     logout: Logout = async (): Promise<void> => {
-        const { refreshToken, idToken } = this.getUserTokens()
+        const { idToken } = this.getUserTokens()
 
-        if (!refreshToken) {
+        if (!idToken) {
             return
         }
 
@@ -418,7 +406,7 @@ export class OidcClient {
         const { end_session_endpoint } = await this.getMetadataConfig()
         const loginUrl = new URL(end_session_endpoint)
 
-        loginUrl.searchParams.append('id_token_hint', idToken!)
+        loginUrl.searchParams.append('id_token_hint', idToken)
         loginUrl.searchParams.append('post_logout_redirect_uri', logoutBackUrl)
 
         this.removeUserTokens()
@@ -550,10 +538,10 @@ export class OidcClient {
      * Получает текущие токены
      */
     getUserTokens(): {
-        accessTokenExpireIn: number,
         accessToken: string | null,
-        refreshToken: string | null,
+        accessTokenExpireIn: number,
         idToken: string | null,
+        refreshToken: string | null,
     } {
         const {
             expireIn: accessTokenExpireIn,
@@ -569,7 +557,10 @@ export class OidcClient {
      * Проверяет, есть ли активные запросы обновления токена с других вкладок
      */
     isRefreshRequestsPending(): boolean {
-        const params: SetValueStoreParams = { keyPostfix: 'refreshLock', expireIn: Date.now() + 10 * SECOND }
+        const params: SetValueStoreParams = {
+            keyPostfix: 'refreshLock',
+            expireIn: Date.now() + 10 * SECOND,
+        }
         const { value: isRefreshPending } = getStoreData<true>(this.config, params)
 
         if (isRefreshPending === true) {

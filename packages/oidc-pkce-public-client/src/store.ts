@@ -20,7 +20,7 @@ export function cleanerStart(config: Config): void {
     const now = Date.now()
 
     Object.keys(localStorage)
-        .filter((key) => key.startsWith(config.storeKeyPrefix))
+        .filter(key => key.startsWith(config.storeKeyPrefix))
         .forEach((key) => {
             let removeItem = false
 
@@ -61,7 +61,7 @@ export function getStoreKey(config: Config, params: StoreParams = {}): string {
 export function setStoreData<T = unknown>(config: Config, value: T, params: SetValueStoreParams = {}): void {
     const key = getStoreKey(config, params)
     const expireIn = params.expireIn ?? (Date.now() + MAX_CACHE)
-    const storeValue:StoredValue<T> = {
+    const storeValue: StoredValue<T> = {
         expireIn,
         value,
     }
@@ -75,7 +75,10 @@ export function removeStoreData(config: Config, params: StoreParams = {}): void 
     window.localStorage.removeItem(key)
 }
 
-export function getStoreData<T = unknown>(config: Config, params: StoreParams = {}): { expireIn: number, value: T | null } {
+export function getStoreData<T = unknown>(config: Config, params: StoreParams = {}): {
+    expireIn: number,
+    value: T | null
+} {
     try {
         const key = getStoreKey(config, params)
         const storeValueRaw = window.localStorage.getItem(key)

@@ -36,7 +36,7 @@ async function start() {
     if (appRootEl) {
         createRoot(appRootEl).render(
             <OidcContextProvider oidcClient={oidcClient}>
-                <App/>
+                <App />
             </OidcContextProvider>,
         )
     }
