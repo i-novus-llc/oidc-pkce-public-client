@@ -6,5 +6,9 @@
     },
     "extends": [
         "../../.eslintrc.json"
+    ],
+    "ignorePatterns": [
+        "dist",
+        "rollup.config.js"
     ]
 }
