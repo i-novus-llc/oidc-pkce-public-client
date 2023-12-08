@@ -1,14 +1,16 @@
 {
     "root": true,
+    "extends": [
+        "../../.eslintrc.json"
+    ],
     "rules": {
         "@typescript-eslint/naming-convention": "off",
         "sonarjs/cognitive-complexity": "off"
     },
-    "extends": [
-        "../../.eslintrc.json"
-    ],
     "ignorePatterns": [
         "dist",
-        "rollup.config.js"
+        "node_modules",
+        "dts.config.ts",
+        "vite.config.ts"
     ]
 }
