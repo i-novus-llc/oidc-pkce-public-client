@@ -68,6 +68,6 @@
     "rimraf": "^5.0.5",
     "rollup-plugin-visualizer": "^5.10.0",
     "typescript": "5.3.3",
-    "vite": "^5.0.7"
+    "vite": "^5.0.12"
   }
 }
