@@ -1,3 +1,5 @@
+import type { OidcClient } from './OidcClient'
+
 export interface OidcClientConfig {
     authority: string
     clientId: string
@@ -69,7 +71,7 @@ export interface JwtClaims {
 }
 
 export type Login = (redirectUri?: string) => Promise<void>
-export type Logout = () => Promise<void>
+export type Logout = (config?: { beforeLogout?(oidcClient: OidcClient): Promise<void> }) => Promise<void>
 
 export interface OidcContext {
     accessToken: string | null
