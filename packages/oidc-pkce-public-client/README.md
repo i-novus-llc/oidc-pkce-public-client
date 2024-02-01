@@ -24,15 +24,15 @@ async function start() {
     await oidcClient.init()
 
     const appRootEl = document.getElementById('root')
-
-    if (appRootEl) {
-        // Рендерим провайдер OIDC-контекста
-        createRoot(appRootEl).render(
-            <OidcContextProvider oidcClient={oidcClient}>
-                <App/>
-            </OidcContextProvider>,
-        )
-    }
+    
+    const root = createRoot(appRootEl)
+    
+    // Рендерим провайдер OIDC-контекста
+    root.render(
+        <OidcContextProvider oidcClient={oidcClient}>
+            <App/>
+        </OidcContextProvider>,
+    )
 }
 
 start().catch((e) => {
@@ -120,14 +120,14 @@ async function start() {
     }
 
     const appRootEl = document.getElementById('root')
-
-    if (appRootEl) {
-        createRoot(appRootEl).render(
-            <OidcContextProvider oidcClient={oidcClient}>
-                <App/>
-            </OidcContextProvider>,
-        )
-    }
+    
+    const root = createRoot(appRootEl)
+    
+    root.render(
+        <OidcContextProvider oidcClient={oidcClient}>
+            <App/>
+        </OidcContextProvider>,
+    )
 }
 
 start().catch((e) => {
