@@ -16,8 +16,7 @@
         "lint": "yarn workspace @i-novus/oidc-pkce-public-client run lint&&yarn workspace app run lint"
     },
     "devDependencies": {
-        "@i-novus/eslint-config": "^1.0.2",
-        "eslint": "^8.42.0"
+        "@i-novus/eslint-config": "^1.0.5"
     },
     "engines": {
         "npm": "please-use-yarn",

@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
-import { useOidcContext } from '@i-novus/oidc-pkce-public-client'
+import { OidcClient, useOidcContext } from '@i-novus/oidc-pkce-public-client'
 
+import { sleep } from './util'
 import { getRoles } from './tokenUtils'
 
 export const App: FC = () => {
@@ -18,7 +19,20 @@ export const App: FC = () => {
                             <pre>
                                 {JSON.stringify(getRoles(rawParsedToken))}
                             </pre>
-                            <button type="button" onClick={() => logout()}>Logout (((</button>
+                            <button
+                                type="button"
+                                onClick={() => (
+                                    logout({
+                                        async beforeLogout(oidcClient: OidcClient) {
+                                            await sleep(1000)
+
+                                            console.log(`On before logging out ${oidcClient.getUserTokens().idToken}`)
+                                        },
+                                    })
+                                )}
+                            >
+                                Logout (((
+                            </button>
                             <pre>
                                 {JSON.stringify(rawParsedToken, null, 4)}
                             </pre>

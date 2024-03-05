@@ -259,7 +259,11 @@ export class OidcClient {
     /**
      * Инициализирует клиент
      */
-    async init(): Promise<void> {
+    async init(
+        config: {
+            afterLogin?(oidcClient: OidcClient): Promise<void>,
+        } = {},
+    ): Promise<void> {
         cleanerStart(this.config)
         const { responseId, responseCode } = this.getLoginCallbackData()
 
@@ -307,6 +311,10 @@ export class OidcClient {
             }
 
             this.setUserTokens(tokenResponse)
+
+            if (config?.afterLogin) {
+                await config?.afterLogin(this)
+            }
 
             window.location.assign(redirectUri)
 
@@ -395,11 +403,15 @@ export class OidcClient {
     /**
      * Делает logout, если пользователь авторизован
      */
-    logout: Logout = async (): Promise<void> => {
+    logout: Logout = async (config = {}): Promise<void> => {
         const { idToken } = this.getUserTokens()
 
         if (!idToken) {
             return
+        }
+
+        if (config?.beforeLogout) {
+            await config?.beforeLogout(this)
         }
 
         const { logoutBackUrl } = this.config

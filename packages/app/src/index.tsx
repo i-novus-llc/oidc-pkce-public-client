@@ -3,12 +3,19 @@ import { createRoot } from 'react-dom/client'
 import { OidcClient, OidcContextProvider, jwtDecode } from '@i-novus/oidc-pkce-public-client'
 
 import { oidcClientConfig } from './config'
+import { sleep } from './util'
 import { App } from './App'
 
 async function start() {
     const oidcClient = new OidcClient(oidcClientConfig)
 
-    await oidcClient.init()
+    await oidcClient.init({
+        async afterLogin(oidcClient) {
+            await sleep(1000)
+
+            console.log(`Logged in current tab ${oidcClient.getUserTokens().idToken}`)
+        },
+    })
     await oidcClient.login()
 
     oidcClient.on('login', () => {

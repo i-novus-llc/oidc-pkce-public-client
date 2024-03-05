@@ -4,10 +4,10 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev:watch": "vite --port 8081",
-        "build": "vite build",
+        "dev:watch": "tsc&&vite --port 8081",
+        "build": "tsc&&vite build",
         "start": "vite preview --port 8081",
-        "lint": "eslint src&&tsc"
+        "lint": "eslint src"
     },
     "dependencies": {
         "@i-novus/oidc-pkce-public-client": "workspace:*",
@@ -17,9 +17,9 @@
     "devDependencies": {
         "@types/react": "^18.2.28",
         "@types/react-dom": "^18.2.13",
-        "@vitejs/plugin-react": "^4.1.0",
+        "@vitejs/plugin-react": "^4.2.1",
         "eslint": "^8.42.0",
-        "typescript": "5.1.6",
-        "vite": "^4.4.11"
+        "typescript": "5.3.3",
+        "vite": "^5.0.7"
     }
 }
