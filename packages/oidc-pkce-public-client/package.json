@@ -44,6 +44,7 @@
     "README.md",
     "LICENSE"
   ],
+  "type": "module",
   "module": "./dist/index.js",
   "main": "./dist/index.cjs",
   "types": "dist/index.d.ts",
@@ -51,10 +52,6 @@
     "crypto-js": "^4.2.0",
     "jwt-decode": "^4.0.0",
     "uuid": "^9.0.1"
-  },
-  "peerDependencies": {
-    "react": ">=17.0.0",
-    "react-dom": ">=17.0.0"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.1",
@@ -69,5 +66,9 @@
     "rollup-plugin-visualizer": "^5.10.0",
     "typescript": "5.3.3",
     "vite": "^5.0.7"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
   }
 }

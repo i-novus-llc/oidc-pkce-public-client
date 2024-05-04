@@ -1,6 +1,4 @@
 {
-    "name": "repo",
-    "description": "monorepo for \"@i-novus/oidc-pkce-public-client\" lib and test app for it",
     "private": true,
     "license": "Apache-2.0",
     "type": "module",
@@ -13,14 +11,16 @@
         "dev:lib:watch": "yarn workspace @i-novus/oidc-pkce-public-client run dev:watch",
         "dev:app:watch": "yarn workspace app run dev:watch",
         "build-fast": "yarn workspace @i-novus/oidc-pkce-public-client run build&&yarn workspace app run build",
-        "lint": "yarn workspace @i-novus/oidc-pkce-public-client run lint&&yarn workspace app run lint"
+        "lint": "yarn workspace @i-novus/oidc-pkce-public-client run lint&&yarn workspace app run lint",
+        "postinstall": "license-checker --exclude axe-core"
     },
     "devDependencies": {
-        "@i-novus/eslint-config": "^1.0.5"
+        "@i-novus/eslint-config": "^1.0.5",
+        "@i-novus/license-checker": "^0.0.4"
     },
     "engines": {
         "npm": "please-use-yarn",
-        "node": ">=16"
+        "node": ">=18"
     },
     "packageManager": "yarn@3.6.3"
 }
