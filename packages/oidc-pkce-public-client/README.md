@@ -1,5 +1,7 @@
 # OIDC клиент public-типа с поддержкой PKCE для react-приложений
 
+[![NPM version](https://img.shields.io/npm/v/@i-novus/oidc-pkce-public-client.svg)](https://www.npmjs.org/package/@i-novus/oidc-pkce-public-client)
+
 npm-пакет `@i-novus/oidc-pkce-public-client` предназначен для использования в `react 17+` приложениях, где необходима авторизация через OAuth сервер с использованием публичного (public) клиента (confidential не поддерживается).
 
 

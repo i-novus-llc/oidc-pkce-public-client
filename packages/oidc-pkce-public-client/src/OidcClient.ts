@@ -266,14 +266,23 @@ export class OidcClient {
     ): Promise<void> {
         cleanerStart(this.config)
         const { responseId, responseCode } = this.getLoginCallbackData()
+        const loginData = responseId && responseCode
+            ? getTabStoreData<LoginCallbackSessionStorageData>(this.config, { id: responseId })
+            : null
 
-        if (responseId && responseCode) {
-            const loginData = getTabStoreData<LoginCallbackSessionStorageData>(this.config, { id: responseId })
+        if (responseId && responseCode && !loginData) {
+            console.error('Authorisation error: "responseId" and "responseCode" is set, but "loginData" is not found')
 
-            if (!loginData) {
-                throw new Error(`LOGIN CALLBACK: Data not found for id:${responseId}`)
-            }
+            await new Promise((resolve) => {
+                setTimeout(resolve, 5000)
+            })
 
+            window.location.assign(window.location.pathname)
+
+            await new Promise(() => {})
+        }
+
+        if (responseId && responseCode && loginData) {
             const { grantType, clientId, pkce } = this.config
             const { token_endpoint } = await this.getMetadataConfig()
             const { codeVerifier, redirectUri } = loginData
