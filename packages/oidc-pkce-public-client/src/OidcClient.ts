@@ -37,8 +37,12 @@ export class OidcClient {
         accessTokenUpdated: [],
     }
 
-    constructor(oidcClientConfig: OidcClientConfig) {
-        this.config = OidcClient.getConfig(oidcClientConfig)
+    constructor(oidcClientConfig?: OidcClientConfig) {
+        if (oidcClientConfig) {
+            this.config = OidcClient.getConfig(oidcClientConfig)
+        } else {
+            this.config = null as unknown as Config
+        }
     }
 
     on(event: 'login', handler: LoginHandler): this
@@ -260,10 +264,22 @@ export class OidcClient {
      * Инициализирует клиент
      */
     async init(
-        config: {
+        {
+            oidcClientConfig,
+            afterLogin,
+        }: {
             afterLogin?(oidcClient: OidcClient): Promise<void>,
+            oidcClientConfig?: OidcClientConfig,
         } = {},
     ): Promise<void> {
+        if (oidcClientConfig) {
+            this.config = OidcClient.getConfig(oidcClientConfig)
+        }
+
+        if (!this.config) {
+            throw new Error('OIDC Config is not initialised')
+        }
+
         cleanerStart(this.config)
         const { responseId, responseCode } = this.getLoginCallbackData()
         const loginData = responseId && responseCode
@@ -321,8 +337,8 @@ export class OidcClient {
 
             this.setUserTokens(tokenResponse)
 
-            if (config?.afterLogin) {
-                await config?.afterLogin(this)
+            if (afterLogin) {
+                await afterLogin(this)
             }
 
             window.location.assign(redirectUri)
