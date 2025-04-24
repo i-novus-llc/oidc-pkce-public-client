@@ -331,7 +331,7 @@ export class OidcClient {
 
             const tokenResponse: TokenResponse = await res.json() as TokenResponse
 
-            if (tokenResponse.token_type !== 'bearer') {
+            if (!['bearer', 'Bearer'].includes(tokenResponse.token_type)) {
                 throw new Error(`LOGIN CALLBACK: Token is not bearer type. Actual: ${tokenResponse.token_type}`)
             }
 
