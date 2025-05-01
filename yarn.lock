@@ -582,15 +582,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@i-novus/license-checker@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@i-novus/license-checker@npm:0.0.4"
+"@i-novus/license-checker@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@i-novus/license-checker@npm:1.0.1"
   dependencies:
-    commander: ^12.0.0
-    license-checker-rseidelsohn: ^4.3.0
+    commander: ^13.1.0
+    license-checker-rseidelsohn: ^4.4.2
   bin:
     license-checker: dist/license-checker.js
-  checksum: 8daf029702196ecd3c912f7a4dfa561ef3e7495c0407d30243979017f0208af305498504634b211f212ff5929c8b79bfadbb9394b33027b4588de1e9d58d674d
+  checksum: 19953d37407beb6e3726295f1b1b4910d22c8431cf6b4729279026893c000dcf2d727a6871833c35d6c074ad5fab0c7c5f070e4bbea50560668008b903863948
   languageName: node
   linkType: hard
 
@@ -1635,10 +1635,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^12.0.0":
-  version: 12.0.0
-  resolution: "commander@npm:12.0.0"
-  checksum: bce9e243dc008baba6b8d923f95b251ad115e6e7551a15838d7568abebcca0fc832da1800cf37caf37852f35ce4b7fb794ba7a4824b88c5adb1395f9268642df
+"commander@npm:^13.1.0":
+  version: 13.1.0
+  resolution: "commander@npm:13.1.0"
+  checksum: 8ca2fcb33caf2aa06fba3722d7a9440921331d54019dabf906f3603313e7bf334b009b862257b44083ff65d5a3ab19e83ad73af282bd5319f01dc228bdf87ef0
   languageName: node
   linkType: hard
 
@@ -3378,9 +3378,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"license-checker-rseidelsohn@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "license-checker-rseidelsohn@npm:4.3.0"
+"license-checker-rseidelsohn@npm:^4.4.2":
+  version: 4.4.2
+  resolution: "license-checker-rseidelsohn@npm:4.4.2"
   dependencies:
     chalk: 4.1.2
     debug: ^4.3.4
@@ -3394,8 +3394,8 @@ __metadata:
     spdx-satisfies: ^5.0.1
     treeify: ^1.1.0
   bin:
-    license-checker-rseidelsohn: bin/license-checker-rseidelsohn
-  checksum: dbd94f66c75233b79f851c42b113068ce5b52e9e92a8840b36879d3197aa53b0880c732ffd75022d9d1eaaf35bfa26ca5466daf03b4c65aa3a55cc834dff4265
+    license-checker-rseidelsohn: bin/license-checker-rseidelsohn.js
+  checksum: e0f2214ef84b0c32918f7cd8da441144713cf208970ec22511959be948a77de0c8aaed9e74f3e374360dc3af1eabcdd170519bcad0c04cdd40293668e2fef022
   languageName: node
   linkType: hard
 
@@ -4320,7 +4320,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@i-novus/eslint-config": ^1.0.5
-    "@i-novus/license-checker": ^0.0.4
+    "@i-novus/license-checker": 1.0.1
   languageName: unknown
   linkType: soft
 

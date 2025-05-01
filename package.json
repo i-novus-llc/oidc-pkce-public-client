@@ -11,12 +11,11 @@
         "dev:lib:watch": "yarn workspace @i-novus/oidc-pkce-public-client run dev:watch",
         "dev:app:watch": "yarn workspace app run dev:watch",
         "build-fast": "yarn workspace @i-novus/oidc-pkce-public-client run build&&yarn workspace app run build",
-        "lint": "yarn workspace @i-novus/oidc-pkce-public-client run lint&&yarn workspace app run lint",
-        "postinstall": "license-checker --exclude axe-core"
+        "lint": "yarn workspace @i-novus/oidc-pkce-public-client run lint&&yarn workspace app run lint"
     },
     "devDependencies": {
         "@i-novus/eslint-config": "^1.0.5",
-        "@i-novus/license-checker": "^0.0.4"
+        "@i-novus/license-checker": "1.0.1"
     },
     "engines": {
         "npm": "please-use-yarn",
